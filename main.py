@@ -1,8 +1,8 @@
 import numpy as np
 import core
-import selection_alg
+import selection_alg_old
 from scipy.io import loadmat
-import new_selection_alg
+import selection_alg
 
 
 
@@ -44,7 +44,10 @@ channel_limit = 8
 algorithm = 'forward' #or 'backward'
 
 
-new_selection_alg.forward_selection(n_channels,reduced_data,selected_tw,fs)
+#selection_alg.forward_selection_eer(n_channels, reduced_data, selected_tw, fs)
+selection_alg.forward_selection_auc(n_channels, reduced_data, selected_tw, fs)
+#selection_alg.backward_selection_eer(n_channels, reduced_data, selected_tw, fs)
+#selection_alg.backward_selection_auc(n_channels, reduced_data, selected_tw, fs)
 
 #selected_channels, best_EER, best_AUC = selection_alg.apply_selection(algorithm, n_channels, reduced_data, selected_tw, fs, EER_limit, AUC_limit, channel_limit)
 

@@ -56,3 +56,39 @@ def plot_ROC_curve(FAR, FRR, AUC):
     plt.legend()
     plt.grid(True)
     plt.show()
+
+def plot_EER_forward(EER_values):
+    plt.plot(range(1, len(EER_values) + 1), EER_values, marker='o')
+    plt.xlabel('Numero di Canali')
+    plt.ylabel('Valore EER')
+    plt.title('EER vs Numero di Canali Selezionati')
+    plt.xticks(range(1, len(EER_values) + 1))
+    plt.tight_layout()
+    plt.show()
+
+def plot_AUC_forward(AUC_values):
+    plt.plot(range(1, len(AUC_values) + 1), AUC_values, marker='o')
+    plt.xlabel('Numero di Canali')
+    plt.ylabel('Valore AUC')
+    plt.title('AUC vs Numero di Canali Selezionati')
+    plt.xticks(range(1, len(AUC_values) + 1))
+    plt.tight_layout()
+    plt.show()
+
+def plot_EER_backward(EER_values):
+    plt.plot(range(len(EER_values), 0, -1), EER_values, marker='o')
+    plt.xlabel('Numero di Canali')
+    plt.ylabel('Valore EER')
+    plt.title('EER vs Numero di Canali Selezionati')
+    plt.xticks(range(len(EER_values), 0, -1))
+    plt.tight_layout()
+    plt.show()
+
+def plot_AUC_backward(AUC_values):
+    plt.plot(range(len(AUC_values), 0, -1), AUC_values, marker='o')
+    plt.xlabel('Numero di Canali')
+    plt.ylabel('Valore AUC')
+    plt.title('AUC vs Numero di Canali Selezionati')
+    plt.xticks(range(len(AUC_values), 0, -1))
+    plt.tight_layout()
+    plt.show()

@@ -10,7 +10,7 @@ def compute_features_matrix(dataset, tw, fs, selected_channels):
 
     n_sbjs, n_channels, n_samples = dataset.shape
 
-    n_features = 1
+    n_features = 2
 
     print(f'Processing window length {tw}')
 
@@ -43,11 +43,17 @@ def compute_features_matrix(dataset, tw, fs, selected_channels):
             # for i_channel in range(1, n_channels + 1):  # For each channel
             for i_channel in selected_channels:
 
-                exp, indices = fooof_features.comp_aperiodic_exp(tmp_data, i_sbj, i_channel, n_ch_sel, fs, n_features)
+                exp, off, indices = fooof_features.comp_aperiodic(tmp_data, i_sbj, i_channel, n_ch_sel, fs, n_features)
+
+                #exp, off, freq, indices = fooof_features.comp_aperiodic_and_1st_freq(tmp_data, i_sbj, i_channel, n_ch_sel, fs, n_features)
+
+                #exp, indices = fooof_features.comp_aperiodic_exp(tmp_data,i_sbj,i_channel,n_ch_sel,fs,n_features)
 
                 #pw1, pw2, indices = fooof_features.comp_peak_1st_2nd_pw(tmp_data,i_sbj,i_channel,n_ch_sel,fs,n_features)
 
                 features_vector[indices[0]] = exp
+                features_vector[indices[1]] = off
+                #features_vector[indices[2]] = freq
 
 
 

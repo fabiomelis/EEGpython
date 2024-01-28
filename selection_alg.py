@@ -36,7 +36,7 @@ def forward_selection_eer(n_channels, dataset, tw, fs):
                 best_channel = new_channel
                 best_eer = EER
 
-        print(f'Miglior canale selezionato: {best_channel} con EER: {best_eer:.3f} e AUC: {best_auc:.3f}')
+        print(f'Miglior canale selezionato: {best_channel} con EER: {best_eer:.4f} e AUC: {best_auc:.4f}')
 
         return best_channel, best_eer
 
@@ -54,7 +54,7 @@ def forward_selection_eer(n_channels, dataset, tw, fs):
         remaining_channels.remove(best_channel)
         selected_channels.append(best_channel)
 
-        channels_str = f"{len(selected_channels)} canali: {', '.join(map(str, selected_channels))}, EER: {eer:.3f}\n"
+        channels_str = f"{len(selected_channels)} canali: {', '.join(map(str, selected_channels))}, EER: {eer:.4f}\n"
         channels_history += channels_str
 
         print(channels_str)
@@ -86,7 +86,7 @@ def forward_selection_auc(n_channels, dataset, tw, fs):
                 best_channel = new_channel
                 best_auc = AUC
 
-        print(f'Miglior canale selezionato: {best_channel} con EER: {best_eer:.3f} e AUC: {best_auc:.3f}')
+        print(f'Miglior canale selezionato: {best_channel} con EER: {best_eer:.4f} e AUC: {best_auc:.4f}')
 
         return best_channel, best_auc
 
@@ -104,7 +104,7 @@ def forward_selection_auc(n_channels, dataset, tw, fs):
         remaining_channels.remove(best_channel)
         selected_channels.append(best_channel)
 
-        channels_str = f"{len(selected_channels)} canali: {', '.join(map(str, selected_channels))}, AUC: {auc:.3f}\n"
+        channels_str = f"{len(selected_channels)} canali: {', '.join(map(str, selected_channels))}, AUC: {auc:.4f}\n"
         channels_history += channels_str
 
         print(channels_str)
@@ -124,7 +124,7 @@ def backward_selection_eer(n_channels, dataset, tw, fs):
 
     EER, AUC = core.compute_EER_AUC(dataset, tw, fs, selected_channels)
 
-    channels_str = f"{len(selected_channels)} canali: {', '.join(map(str, selected_channels))}, AUC: {EER:.3f}\n"
+    channels_str = f"{len(selected_channels)} canali: {', '.join(map(str, selected_channels))}, AUC: {EER:.4f}\n"
     channels_history += channels_str
 
     print(channels_str)
@@ -152,7 +152,7 @@ def backward_selection_eer(n_channels, dataset, tw, fs):
                 worst_channel = channel_to_remove
                 best_eer = EER
 
-        print(f'Peggiore canale selezionato: {worst_channel} con EER: {best_eer:.3f} e AUC: {best_auc:.3f}')
+        print(f'Peggiore canale selezionato: {worst_channel} con EER: {best_eer:.4f} e EER: {best_auc:.4f}')
 
         return worst_channel, best_eer
 
@@ -164,7 +164,7 @@ def backward_selection_eer(n_channels, dataset, tw, fs):
 
         print(f'Canali rimanenti: {selected_channels}')
 
-        channels_str = f"{len(selected_channels)} canali: {', '.join(map(str, selected_channels))}, AUC: {eer:.3f}\n"
+        channels_str = f"{len(selected_channels)} canali: {', '.join(map(str, selected_channels))}, EER: {eer:.4f}\n"
         channels_history += channels_str
 
         print(channels_str)
@@ -183,7 +183,7 @@ def backward_selection_auc(n_channels, dataset, tw, fs):
 
     EER, AUC = core.compute_EER_AUC(dataset, tw, fs, selected_channels)
 
-    channels_str = f"{len(selected_channels)} canali: {', '.join(map(str, selected_channels))}, AUC: {AUC:.3f}\n"
+    channels_str = f"{len(selected_channels)} canali: {', '.join(map(str, selected_channels))}, AUC: {AUC:.4f}\n"
     channels_history += channels_str
 
     print(channels_str)
@@ -211,7 +211,7 @@ def backward_selection_auc(n_channels, dataset, tw, fs):
                 worst_channel = channel_to_remove
                 best_auc = AUC
 
-        print(f'Peggiore canale selezionato: {worst_channel} con EER: {best_eer:.3f} e AUC: {best_auc:.3f}')
+        print(f'Peggiore canale selezionato: {worst_channel} con EER: {best_eer:.4f} e AUC: {best_auc:.4f}')
 
         return worst_channel, best_auc
 
@@ -222,7 +222,7 @@ def backward_selection_auc(n_channels, dataset, tw, fs):
 
         print(f'Canali rimanenti: {selected_channels}')
 
-        channels_str = f"{len(selected_channels)} canali: {', '.join(map(str, selected_channels))}, AUC: {auc:.3f}\n"
+        channels_str = f"{len(selected_channels)} canali: {', '.join(map(str, selected_channels))}, AUC: {auc:.4f}\n"
         channels_history += channels_str
 
         print(channels_str)

@@ -80,7 +80,7 @@ def plot_EER_backward(EER_values):
     plt.xlabel('Numero di Canali')
     plt.ylabel('Valore EER')
     plt.title('EER vs Numero di Canali Selezionati')
-    plt.xticks(range(len(EER_values), 0, -1))
+    plt.xticks(range(len(EER_values), 0, -1), range(1, len(EER_values) + 1))
     plt.tight_layout()
     plt.show()
 
@@ -89,6 +89,6 @@ def plot_AUC_backward(AUC_values):
     plt.xlabel('Numero di Canali')
     plt.ylabel('Valore AUC')
     plt.title('AUC vs Numero di Canali Selezionati')
-    plt.xticks(range(len(AUC_values), 0, -1))
+    plt.xticks(range(len(AUC_values), 0, -1), range(1, len(AUC_values) + 1))
     plt.tight_layout()
     plt.show()

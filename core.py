@@ -10,7 +10,7 @@ def compute_features_matrix(dataset, tw, fs, selected_channels):
 
     n_sbjs, n_channels, n_samples = dataset.shape
 
-    n_features = 2
+    n_features = 1
 
     print(f'Processing window length {tw}')
 
@@ -40,19 +40,20 @@ def compute_features_matrix(dataset, tw, fs, selected_channels):
 
             n_ch_sel = 1
 
-            # for i_channel in range(1, n_channels + 1):  # For each channel
+            # for i_channel in range(1, n_channels + 1):
             for i_channel in selected_channels:
 
-                exp, off, indices = fooof_features.comp_aperiodic(tmp_data, i_sbj, i_channel, n_ch_sel, fs, n_features)
+                #exp, off, indices = fooof_features.comp_aperiodic(tmp_data, i_sbj, i_channel, n_ch_sel, fs, n_features)
 
                 #exp, off, freq, indices = fooof_features.comp_aperiodic_and_1st_freq(tmp_data, i_sbj, i_channel, n_ch_sel, fs, n_features)
 
-                #exp, indices = fooof_features.comp_aperiodic_exp(tmp_data,i_sbj,i_channel,n_ch_sel,fs,n_features)
+                exp, indices = fooof_features.comp_aperiodic_exp(tmp_data,i_sbj,i_channel,n_ch_sel,fs,n_features)
 
                 #pw1, pw2, indices = fooof_features.comp_peak_1st_2nd_pw(tmp_data,i_sbj,i_channel,n_ch_sel,fs,n_features)
 
+
                 features_vector[indices[0]] = exp
-                features_vector[indices[1]] = off
+                #features_vector[indices[1]] = off
                 #features_vector[indices[2]] = freq
 
 
@@ -141,54 +142,5 @@ def compute_EER_AUC (dataset, tw, fs, selected_channels):
 
     return EER, AUC
 
-
-def compute_performance_n_channels(dataset, tw_range, fs, selected_channels):
-
-    n_sbjs, n_channels, n_samples = dataset.shape
-
-
-    n_cases = len(tw_range)
-    EERtot = np.zeros(n_cases)
-    AUCtot = np.zeros(n_cases)
-    score_distanza_tot = []
-    flag_tot = []
-
-    i_tw = 0
-    for tw in tw_range:
-        i_tw += 1
-
-        ps, v_identity, n_epochs = compute_features_matrix(dataset, tw, fs, selected_channels)
-
-        #print('Calcolo score')
-        score_distanza , flag  = performance.calcolo_score(ps, v_identity, n_epochs, n_sbjs)
-        print('Vettore degli score: ', score_distanza)
-
-        #print('Calcolo FAR e FRR')
-        FAR, FRR, vettore_soglia = performance.calcolo_FAR_FRR(score_distanza, flag)
-        #print(FAR, FRR)
-
-        #print('Calcolo EER e AUC')
-        EER, AUC = performance.calcolo_EER_AUC(FAR, FRR)
-
-        print('EER e AUC: ', EER, AUC)
-
-        #utils.plot_ROC_curve(FAR, FRR, AUC)
-
-        EERtot[i_tw - 1] = EER
-        AUCtot[i_tw - 1] = AUC
-        score_distanza_tot.append(score_distanza)
-        flag_tot.append(flag)
-
-    # Plot EERtot e AUCtot
-    utils.print_EER(tw_range, EERtot)
-    utils.print_AUC(tw_range, AUCtot)
-
-    # Calcola la media di AUCtot e EERtot
-    mean_eer_tot = np.mean(EERtot)
-    mean_auc_tot = np.mean(AUCtot)
-
-    # Stampa i risultati
-    print(f"Mean EERtot: {mean_eer_tot}")
-    print(f"Mean AUCtot: {mean_auc_tot}")
 
 

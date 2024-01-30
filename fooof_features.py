@@ -344,6 +344,8 @@ def comp_aperiodic_exp(tmp_data, i_sbj, i_channel, n_ch_sel, fs, n_features):
     # Per evitare errori dovuti alla frequenza bisogna impostare nperseg a 255 e non a 256 come di default
     frequencies, power_spectrum = welch(tmp_signal, fs=fs, nperseg=min(255, len(tmp_signal)))
 
+
+
     # Applica il modello FOOOF
     fooof_model.fit(frequencies, power_spectrum, freq_range=[2, 60])
 

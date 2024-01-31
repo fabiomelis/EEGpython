@@ -95,3 +95,10 @@ def plot_AUC_backward(AUC_values):
     plt.tight_layout()
     plt.show()
 
+def plot_psd_freq_features(frequencies, power_spectrum, indices_of_interest, psd_of_interest):
+    plt.semilogy(frequencies, power_spectrum, label='PSD')
+    plt.scatter(frequencies[indices_of_interest], psd_of_interest, color='red', label='Frequencies of Interest')
+    plt.legend()
+    plt.xlabel('Frequency (Hz)')
+    plt.ylabel('PSD')
+    plt.show()

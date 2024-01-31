@@ -2,6 +2,7 @@ import numpy as np
 import utils
 import performance
 import fooof_features
+import welch
 
 
 
@@ -10,7 +11,7 @@ def compute_features_matrix(dataset, tw, fs, selected_channels):
 
     n_sbjs, n_channels, n_samples = dataset.shape
 
-    n_features = 1
+    n_features = 20
 
     print(f'Processing window length {tw}')
 
@@ -19,7 +20,7 @@ def compute_features_matrix(dataset, tw, fs, selected_channels):
     s_step = int(np.floor(n_samples / n_epochs))
 
     # Ad ogni epoca di ogni soggetto corrisponde un vettore di features composto da n_features per ogni canale
-    features_lenght = len(selected_channels*n_features)
+    features_lenght = len(selected_channels) * n_features
 
     # Definiamo la matrice contenente le features
     ps = np.zeros((n_sbjs, n_epochs, features_lenght))
@@ -47,13 +48,15 @@ def compute_features_matrix(dataset, tw, fs, selected_channels):
 
                 #exp, off, freq, indices = fooof_features.comp_aperiodic_and_1st_freq(tmp_data, i_sbj, i_channel, n_ch_sel, fs, n_features)
 
-                exp, indices = fooof_features.comp_aperiodic_exp(tmp_data,i_sbj,i_channel,n_ch_sel,fs,n_features)
+                #exp, indices = fooof_features.comp_aperiodic_exp(tmp_data,i_sbj,i_channel,n_ch_sel,fs,n_features)
 
                 #pw1, pw2, indices = fooof_features.comp_peak_1st_2nd_pw(tmp_data,i_sbj,i_channel,n_ch_sel,fs,n_features)
 
 
-                features_vector[indices[0]] = exp
-                #features_vector[indices[1]] = off
+                psd_values, indices = welch.extract_psd_features(tmp_data,i_sbj,i_channel,n_ch_sel,fs,n_features)
+
+                features_vector[indices] = psd_values
+                #features_vector[indices[0]] = exp
                 #features_vector[indices[2]] = freq
 
 

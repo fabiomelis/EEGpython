@@ -43,36 +43,15 @@ selected_tw = 10
 
 
 
-#selection_alg.forward_selection_eer(n_channels, reduced_data, selected_tw, fs)
+selection_alg.forward_selection_eer(n_channels, reduced_data, selected_tw, fs)
 #selection_alg.forward_selection_auc(n_channels, reduced_data, selected_tw, fs)
 #selection_alg.backward_selection_eer(n_channels, reduced_data, selected_tw, fs)
-selection_alg.backward_selection_auc(n_channels, reduced_data, selected_tw, fs)
+#selection_alg.backward_selection_auc(n_channels, reduced_data, selected_tw, fs)
 
 
 #AUC_values = [1, 2, 3, 8, 4,4, 3, 6, 8, 6, 10, 10, 10 ,10]
 #utils.plot_AUC_backward(AUC_values)
 
-
-'''
-# Prova concatenamento clip e campionamenti
-
-import numpy as np
-
-soggetti = 4
-clip = 2
-canali = 1
-campionamenti = 3
-
-matrice_4D = np.random.rand(soggetti, clip, canali, campionamenti)
-
-print(matrice_4D)
-
-matrice_3D = np.concatenate(np.split(matrice_4D, clip, axis=1), axis=3)
-
-print("Dimensioni della matrice a 3 dimensioni:", matrice_3D.shape)
-
-print(matrice_3D)
-'''
 
 '''
 # CONCATENIAMO LE 18 CLIPS

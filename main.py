@@ -4,6 +4,7 @@ from scipy.io import loadmat
 import selection_alg
 import time
 import utils
+import compare
 
 start_time = time.time()
 
@@ -21,6 +22,10 @@ fs = 128
 # Carica i dati (procedura necessaria perche è un file .mat)
 data = loadmat(datapath)
 EEG_filtt = data['my_base']
+
+
+compare.compare_all_clips(EEG_filtt, 10, fs)
+
 
 n_sbjs, n_clips, n_channels, n_samples = EEG_filtt.shape
 
@@ -42,8 +47,11 @@ print(reduced_data.shape)
 selected_tw = 10
 
 
+#compare.compare_all_FOOOF_features(reduced_data, selected_tw, fs)
 
-selection_alg.forward_selection_eer(n_channels, reduced_data, selected_tw, fs)
+
+
+#selection_alg.forward_selection_eer(n_channels, reduced_data, selected_tw, fs)
 #selection_alg.forward_selection_auc(n_channels, reduced_data, selected_tw, fs)
 #selection_alg.backward_selection_eer(n_channels, reduced_data, selected_tw, fs)
 #selection_alg.backward_selection_auc(n_channels, reduced_data, selected_tw, fs)

@@ -15,7 +15,7 @@ def extract_psd_features(tmp_data, i_sbj, i_channel, n_ch_sel, fs, n_features):
     # Per evitare errori dovuti alla frequenza bisogna impostare nperseg a 255 e non a 256 come di default
     frequencies, power_spectrum = welch(tmp_signal, fs=fs, nperseg=min(255, len(tmp_signal)))
 
-    frequencies_of_interest = np.linspace(1, 50, 20)
+    frequencies_of_interest = np.linspace(1, 50, 2)
 
     indices_of_interest = np.searchsorted(frequencies, frequencies_of_interest, side='left')
 

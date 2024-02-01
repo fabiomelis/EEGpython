@@ -16,7 +16,7 @@ def apply_selection(algorithm, n_channels, dataset, tw, fs):
 '''
 
 
-def forward_selection_eer(n_channels, dataset, tw, fs):
+def forward_selection_eer(n_channels, dataset, tw, fs, string):
 
     def find_best_channel_eer():
         best_channel = None
@@ -28,7 +28,13 @@ def forward_selection_eer(n_channels, dataset, tw, fs):
 
             print('Canali analizzati: ', combined_channels, )
 
-            EER, AUC = core.compute_EER_AUC(dataset, tw, fs, combined_channels)
+            if string == 'exp':
+                EER, AUC = core.compute_EER_AUC_exp(dataset, tw, fs, combined_channels)
+            elif string == 'off':
+                EER, AUC = core.compute_EER_AUC_exp_off(dataset, tw, fs, combined_channels)
+            elif string == 'freq':
+                EER, AUC = core.compute_EER_AUC_exp_off_freq(dataset, tw, fs, combined_channels)
+
 
             print('EER e AUC: ', EER, AUC)
 
@@ -54,14 +60,17 @@ def forward_selection_eer(n_channels, dataset, tw, fs):
         remaining_channels.remove(best_channel)
         selected_channels.append(best_channel)
 
-        channels_str = f"{len(selected_channels)} canali: {', '.join(map(str, selected_channels))}, EER: {eer:.4f}\n"
-        channels_history += channels_str
+        #channels_str = f"{len(selected_channels)} canali: {', '.join(map(str, selected_channels))}, EER: {eer:.4f}\n"
+        #channels_history += channels_str
 
-        print(channels_str)
+        #print(channels_str)
 
-    print(channels_history)
+    #print(channels_history)
+    channel_list = ', '.join(map(str, selected_channels))
 
-    utils.plot_EER_forward(EER_values)
+    #utils.plot_EER_forward(EER_values)
+
+    return EER_values, channel_list
 
 
 

@@ -14,12 +14,12 @@ def compare_all_clips(matrix_4D, tw, fs):
 
         print('Clip analizzata: ', clip + 1)
 
-        EER_values , channel_list = selection_alg.forward_selection_eer(n_channels, reduced_data, tw, fs, 'off')
-        #selection_alg.forward_selection_auc(n_channels, reduced_data, tw, fs)
-        #selection_alg.backward_selection_eer(n_channels, reduced_data, tw, fs)
-        #selection_alg.backward_selection_auc(n_channels, reduced_data, tw, fs)
+        values, channel_list = selection_alg.forward_selection_eer(n_channels, reduced_data, tw, fs, 'off')
+        #values, channel_list = selection_alg.forward_selection_auc(n_channels, reduced_data, tw, fs, 'off')
+        #values, channel_list = selection_alg.backward_selection_eer(n_channels, reduced_data, tw, fs, 'off')
+        #values, channel_list = selection_alg.backward_selection_auc(n_channels, reduced_data, tw, fs, 'off')
 
-        vettori.append(EER_values)
+        vettori.append(values)
         stringhe_di_stampa.append(f'Clip {clip + 1}: {channel_list}')
 
     # Trasponi la lista di vettori per ottenere una lista di colonne invece di righe
@@ -28,14 +28,11 @@ def compare_all_clips(matrix_4D, tw, fs):
     print('\n'.join(stringhe_di_stampa))
 
     # Crea il grafico con tutti i vettori sovrapposti
-    plt.plot(range(1, len(EER_values) + 1), vettori_trasposti, marker='o')
-
-    # Aggiungi etichette e titolo al grafico
+    plt.plot(range(1, len(values) + 1), vettori_trasposti, marker='o')
     plt.xlabel('Numero di Canali')
     plt.ylabel('Valori di EER')
     plt.title('Valori di EER sovrapposti per ogni Clip')
-    plt.xticks(range(1, len(EER_values) + 1))
-    # Mostra il grafico
+    plt.xticks(range(1, len(values) + 1))
     plt.show()
 
 

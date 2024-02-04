@@ -57,9 +57,6 @@ selected_tw = 10
 #selection_alg.backward_selection_auc(n_channels, reduced_data, selected_tw, fs)
 
 
-#AUC_values = [1, 2, 3, 8, 4,4, 3, 6, 8, 6, 10, 10, 10 ,10]
-#utils.plot_AUC_backward(AUC_values)
-
 
 '''
 # CONCATENIAMO LE 18 CLIPS

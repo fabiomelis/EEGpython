@@ -15,8 +15,9 @@ datapath = 'C:\\Users\\fabio\\Desktop\\ING INFORMATICA\\TESI\\DREAMER\\DREAMER_b
 tw_range = np.arange(1, 12.5, 0.5)
 
 
-# Frequenza di campionamento con cui sono stati presi i dati raw
+# Frequenza di campionamento con cui sono stati presi i dati raw e finsestra di campionamento fissata
 fs = 128
+tw = 10
 
 
 # Carica i dati (procedura necessaria perche è un file .mat)
@@ -24,7 +25,7 @@ data = loadmat(datapath)
 EEG_filtt = data['my_base']
 
 
-compare.compare_all_clips(EEG_filtt, 10, fs)
+compare.compare_all_clips(EEG_filtt, tw, fs)
 
 
 n_sbjs, n_clips, n_channels, n_samples = EEG_filtt.shape
@@ -43,18 +44,9 @@ print(reduced_data.shape)
 
 
 
-# Finestra fissata a 10 per tutto
-selected_tw = 10
+#compare.compare_all_FOOOF_features(reduced_data, tw, fs)
 
 
-#compare.compare_all_FOOOF_features(reduced_data, selected_tw, fs)
-
-
-
-#selection_alg.forward_selection_eer(n_channels, reduced_data, selected_tw, fs)
-#selection_alg.forward_selection_auc(n_channels, reduced_data, selected_tw, fs)
-#selection_alg.backward_selection_eer(n_channels, reduced_data, selected_tw, fs)
-#selection_alg.backward_selection_auc(n_channels, reduced_data, selected_tw, fs)
 
 
 
@@ -70,10 +62,9 @@ reduced_data = matrice_3D[:, 0, :, :]
 print(reduced_data.shape)
 '''
 
-#selection_alg.forward_selection_eer(n_channels, reduced_data, selected_tw, fs)
-#selection_alg.forward_selection_auc(n_channels, reduced_data, selected_tw, fs)
-#selection_alg.backward_selection_eer(n_channels, reduced_data, selected_tw, fs)
-#selection_alg.backward_selection_auc(n_channels, reduced_data, selected_tw, fs)
+
+#selection_alg.forward_selection_eer(n_channels, reduced_data, tw, fs, string='off')
+
 
 
 end_time = time.time()

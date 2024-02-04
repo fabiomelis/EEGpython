@@ -31,7 +31,7 @@ compare.compare_all_clips(EEG_filtt, tw, fs)
 n_sbjs, n_clips, n_channels, n_samples = EEG_filtt.shape
 
 
-
+'''
 # OLD CODE: MATRICE CON CLIP SINGOLA
 
 i_clip = 3
@@ -43,10 +43,9 @@ reduced_data = EEG_filtt[:, i_clip, :, :]
 print(reduced_data.shape)
 
 
-
 #compare.compare_all_FOOOF_features(reduced_data, tw, fs)
 
-
+'''
 
 
 
@@ -60,11 +59,11 @@ print(matrice_3D.shape)
 reduced_data = matrice_3D[:, 0, :, :]
 
 print(reduced_data.shape)
-'''
 
 
 #selection_alg.forward_selection_eer(n_channels, reduced_data, tw, fs, string='off')
 
+'''
 
 
 end_time = time.time()

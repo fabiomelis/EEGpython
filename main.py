@@ -25,27 +25,30 @@ data = loadmat(datapath)
 EEG_filtt = data['my_base']
 
 
-compare.compare_all_clips(EEG_filtt, tw, fs)
+#compare.compare_all_clips(EEG_filtt, tw, fs)
 
 
 n_sbjs, n_clips, n_channels, n_samples = EEG_filtt.shape
 
 
-'''
+
 # OLD CODE: MATRICE CON CLIP SINGOLA
 
-i_clip = 3
+#i_clip = 5
+
+for clip in range( n_clips ):
+
+    # Estrai i tracciati per la clip specificata (otteniamo una matrice 3D)
+    reduced_data = EEG_filtt[:, clip, :, :]
+
+    print(reduced_data.shape)
 
 
-# Estrai i tracciati per la clip specificata (otteniamo una matrice 3D)
-reduced_data = EEG_filtt[:, i_clip, :, :]
+    #compare.compare_all_FOOOF_features(reduced_data, tw, fs)
 
-print(reduced_data.shape)
+    EER, AUC = core.compute_EER_AUC_exp(reduced_data, tw, fs, selected_channels=[6, 1, 2, 5, 13, 8, 11])
 
-
-#compare.compare_all_FOOOF_features(reduced_data, tw, fs)
-
-'''
+    print(f'Clip {clip + 1} -> EER: ', EER, '; AUC: ', AUC)
 
 
 

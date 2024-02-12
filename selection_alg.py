@@ -34,7 +34,8 @@ def forward_selection_eer(n_channels, dataset, tw, fs, string):
                 EER, AUC = core.compute_EER_AUC_exp_off(dataset, tw, fs, combined_channels)
             elif string == 'freq':
                 EER, AUC = core.compute_EER_AUC_exp_off_freq(dataset, tw, fs, combined_channels)
-
+            elif string == 'welch':
+                EER, AUC = core.compute_EER_AUC_welch(dataset, tw, fs, combined_channels)
 
             print('EER e AUC: ', EER, AUC)
 
@@ -68,7 +69,7 @@ def forward_selection_eer(n_channels, dataset, tw, fs, string):
     #print(channels_history)
     channel_list = ', '.join(map(str, selected_channels))
 
-    #utils.plot_EER_forward(EER_values)
+    utils.plot_EER_forward(EER_values)
 
     return EER_values, channel_list
 
@@ -93,6 +94,8 @@ def forward_selection_auc(n_channels, dataset, tw, fs, string):
                 EER, AUC = core.compute_EER_AUC_exp_off(dataset, tw, fs, combined_channels)
             elif string == 'freq':
                 EER, AUC = core.compute_EER_AUC_exp_off_freq(dataset, tw, fs, combined_channels)
+            elif string == 'welch':
+                EER, AUC = core.compute_EER_AUC_welch(dataset, tw, fs, combined_channels)
 
             print('EER e AUC: ', EER, AUC)
 
@@ -142,6 +145,8 @@ def backward_selection_eer(n_channels, dataset, tw, fs, string):
         EER, AUC = core.compute_EER_AUC_exp_off(dataset, tw, fs, selected_channels)
     elif string == 'freq':
         EER, AUC = core.compute_EER_AUC_exp_off_freq(dataset, tw, fs, selected_channels)
+    elif string == 'welch':
+        EER, AUC = core.compute_EER_AUC_welch(dataset, tw, fs, combined_channels)
 
     channels_str = f"{len(selected_channels)} canali: {', '.join(map(str, selected_channels))}, AUC: {EER:.4f}\n"
     channels_history += channels_str
@@ -211,6 +216,8 @@ def backward_selection_auc(n_channels, dataset, tw, fs, string):
         EER, AUC = core.compute_EER_AUC_exp_off(dataset, tw, fs, selected_channels)
     elif string == 'freq':
         EER, AUC = core.compute_EER_AUC_exp_off_freq(dataset, tw, fs, selected_channels)
+    elif string == 'welch':
+        EER, AUC = core.compute_EER_AUC_welch(dataset, tw, fs, selected_channels)
 
     channels_str = f"{len(selected_channels)} canali: {', '.join(map(str, selected_channels))}, AUC: {AUC:.4f}\n"
     channels_history += channels_str
@@ -238,6 +245,9 @@ def backward_selection_auc(n_channels, dataset, tw, fs, string):
                 EER, AUC = core.compute_EER_AUC_exp_off(dataset, tw, fs, current_channels)
             elif string == 'freq':
                 EER, AUC = core.compute_EER_AUC_exp_off_freq(dataset, tw, fs, current_channels)
+            elif string == 'welch':
+                EER, AUC = core.compute_EER_AUC_welch(dataset, tw, fs, selected_channels)
+
 
             print('EER e AUC: ', EER, AUC)
 

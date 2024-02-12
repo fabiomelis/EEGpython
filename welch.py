@@ -2,6 +2,53 @@ import numpy as np
 from scipy.signal import welch
 import utils
 
+import numpy as np
+from scipy.integrate import simps
+
+
+def extract_area_from_intervals(tmp_data, i_sbj, i_channel, n_ch_sel, fs, n_features):
+
+    frequency_intervals = [(1, 10), (20, 30), (40, 50)]
+
+    indices = []
+
+    for i in range(1, n_features + 1):
+        indices = [(n_ch_sel * n_features) - n_features + i - 1 for i in range(1, n_features + 1)]
+
+    tmp_signal = np.squeeze(tmp_data[i_sbj - 1, i_channel - 1, :])
+
+    # Per evitare errori dovuti alla frequenza bisogna impostare nperseg a 255 e non a 256 come di default
+    frequencies, power_spectrum = welch(tmp_signal, fs=fs, nperseg=min(255, len(tmp_signal)))
+
+    # Calcola l'area totale sotto la curva del PSD
+    total_area = simps(power_spectrum, frequencies)
+
+    features = []
+
+    for interval in frequency_intervals:
+
+        # Trova gli indici delle frequenze all'interno dell'intervallo
+        indices_in_interval = np.where((frequencies >= interval[0]) & (frequencies <= interval[1]))
+
+        # Estrai le frequenze e il PSD all'interno dell'intervallo
+        frequencies_in_interval = frequencies[indices_in_interval]
+        psd_in_interval = power_spectrum[indices_in_interval]
+
+        # Calcola l'area sotto la curva del PSD all'interno dell'intervallo
+        area_in_interval = simps(psd_in_interval, frequencies_in_interval)
+
+        # Normalizza l'area rispetto all'area totale
+        normalized_area = area_in_interval / total_area
+
+        # Aggiungi l'area normalizzata alla lista delle features
+        features.append(normalized_area)
+
+    #print(features)
+    #print(indices)
+
+    return features, indices
+
+
 
 def extract_psd_features(tmp_data, i_sbj, i_channel, n_ch_sel, fs, n_features):
 

@@ -27,11 +27,22 @@ EEG_filtt = data['my_base']
 
 #compare.compare_all_clips(EEG_filtt, tw, fs)
 
+#compare.compare_forward_with_list(EEG_filtt, tw, fs)
+
 
 n_sbjs, n_clips, n_channels, n_samples = EEG_filtt.shape
 
+'''
+# FORWARD SINGLE CLIP
 
+i_clip = 5
 
+reduced_data = EEG_filtt[:, i_clip, :, :]
+
+selection_alg.forward_selection_eer(n_channels,reduced_data,tw,fs,'welch')
+'''
+
+'''
 # OLD CODE: MATRICE CON CLIP SINGOLA
 
 #i_clip = 5
@@ -46,13 +57,13 @@ for clip in range( n_clips ):
 
     #compare.compare_all_FOOOF_features(reduced_data, tw, fs)
 
-    EER, AUC = core.compute_EER_AUC_exp(reduced_data, tw, fs, selected_channels=[6, 1, 2, 5, 13, 8, 11])
+    EER, AUC = core.compute_EER_AUC_exp(reduced_data, tw, fs, selected_channels=[1,4,6,9,12])
 
     print(f'Clip {clip + 1} -> EER: ', EER, '; AUC: ', AUC)
 
 
-
 '''
+
 # CONCATENIAMO LE 18 CLIPS
 
 matrice_3D = np.concatenate(np.split(EEG_filtt, n_clips, axis=1), axis=3)
@@ -64,9 +75,9 @@ reduced_data = matrice_3D[:, 0, :, :]
 print(reduced_data.shape)
 
 
-#selection_alg.forward_selection_eer(n_channels, reduced_data, tw, fs, string='off')
+selection_alg.forward_selection_eer(n_channels, reduced_data, tw, fs, string='welch')
 
-'''
+
 
 
 end_time = time.time()

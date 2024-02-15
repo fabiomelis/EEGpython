@@ -76,14 +76,26 @@ def plot_AUC_forward(AUC_values):
     plt.show()
 
 def plot_EER_backward(EER_values):
-    plt.plot(range(len(EER_values), 0, -1), EER_values, marker='o')
+    '''
+    vettore = []
+    for i in range(len(EER_values), 0, -1):
+        vettore.append(i)
+
+    plt.plot(vettore, EER_values, marker='o')
     plt.xlabel('Numero di Canali')
     plt.ylabel('Valore EER')
     plt.title('EER con Backward Selection')
-    plt.xticks(range(len(EER_values), 0, -1), range(1, len(EER_values) + 1))
+    plt.xticks(vettore)
     plt.tight_layout()
     plt.show()
-
+    '''
+    plt.plot(range(len(EER_values), 0, -1), EER_values, marker='o')
+    plt.xlabel('Numero di Canali')
+    plt.ylabel('Valore EER')
+    plt.title('EER vs Numero di Canali Selezionati')
+    plt.xticks(range(1, len(EER_values) + 1))
+    plt.tight_layout()
+    plt.show()
 
 def plot_AUC_backward(AUC_values):
     vettore_assex = np.arange(len(AUC_values), 0, -1)

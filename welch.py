@@ -1,14 +1,14 @@
 import numpy as np
 from scipy.signal import welch
 import utils
-
+import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import simps
 
 
-def extract_area_from_intervals(tmp_data, i_sbj, i_channel, n_ch_sel, fs, n_features):
+def extract_area_from_intervals(tmp_data, i_sbj, i_channel, n_ch_sel, fs, n_features, frequency_intervals):
 
-    frequency_intervals = [(1, 10), (20, 30), (40, 50)]
+    #frequency_intervals = [(0, 10), (10,20), (20, 30), (30,40) , (40, 50)]
 
     indices = []
 
@@ -45,6 +45,31 @@ def extract_area_from_intervals(tmp_data, i_sbj, i_channel, n_ch_sel, fs, n_feat
 
     #print(features)
     #print(indices)
+    '''
+    plt.bar(range(len(frequency_intervals)), features, tick_label=[str(interval) for interval in frequency_intervals])
+    plt.xlabel('Intervallo di Frequenza')
+    plt.ylabel('Area sotto il PSD')
+    plt.title('Area sotto il PSD per intervallo di frequenza')
+    plt.show()
+    '''
+
+    '''
+    plt.figure(figsize=(10, 6))
+    plt.semilogy(frequencies, power_spectrum, label='Spettro di Potenza', color='blue')
+
+    # Evidenziamo gli intervalli di frequenza di interesse
+    for interval in frequency_intervals:
+        plt.fill_between(frequencies, 0, power_spectrum,
+                         where=((frequencies >= interval[0]) & (frequencies <= interval[1])), alpha=0.3)
+
+    # Aggiungiamo una legenda e le etichette degli assi
+    plt.xlabel('Frequenza (Hz)')
+    plt.ylabel('Spettro di Potenza')
+    plt.title('Spettro di Potenza con Intervalli di Frequenza di Interesse')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+    '''
 
     return features, indices
 

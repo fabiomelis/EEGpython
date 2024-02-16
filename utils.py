@@ -57,7 +57,7 @@ def plot_ROC_curve(FAR, FRR, AUC):
     plt.grid(True)
     plt.show()
 
-def plot_EER_forward(EER_values):
+def plot_EER(EER_values):
     plt.plot(range(1, len(EER_values) + 1), EER_values, marker='o')
     plt.xlabel('Numero di Canali')
     plt.ylabel('Valore EER')
@@ -66,7 +66,8 @@ def plot_EER_forward(EER_values):
     plt.tight_layout()
     plt.show()
 
-def plot_AUC_forward(AUC_values):
+
+def plot_AUC(AUC_values):
     plt.plot(range(1, len(AUC_values) + 1), AUC_values, marker='o')
     plt.xlabel('Numero di Canali')
     plt.ylabel('Valore AUC')
@@ -75,37 +76,6 @@ def plot_AUC_forward(AUC_values):
     plt.tight_layout()
     plt.show()
 
-def plot_EER_backward(EER_values):
-    '''
-    vettore = []
-    for i in range(len(EER_values), 0, -1):
-        vettore.append(i)
-
-    plt.plot(vettore, EER_values, marker='o')
-    plt.xlabel('Numero di Canali')
-    plt.ylabel('Valore EER')
-    plt.title('EER con Backward Selection')
-    plt.xticks(vettore)
-    plt.tight_layout()
-    plt.show()
-    '''
-    plt.plot(range(len(EER_values), 0, -1), EER_values, marker='o')
-    plt.xlabel('Numero di Canali')
-    plt.ylabel('Valore EER')
-    plt.title('EER vs Numero di Canali Selezionati')
-    plt.xticks(range(1, len(EER_values) + 1))
-    plt.tight_layout()
-    plt.show()
-
-def plot_AUC_backward(AUC_values):
-    vettore_assex = np.arange(len(AUC_values), 0, -1)
-    plt.plot(vettore_assex, AUC_values, marker='o')
-    plt.xlabel('Numero di Canali')
-    plt.ylabel('Valore AUC')
-    plt.title('AUC con Backward Selection')
-    plt.gca().invert_xaxis()
-    plt.tight_layout()
-    plt.show()
 
 def plot_psd_freq_features(frequencies, power_spectrum, indices_of_interest, psd_of_interest):
     plt.semilogy(frequencies, power_spectrum, label='PSD')
@@ -114,3 +84,39 @@ def plot_psd_freq_features(frequencies, power_spectrum, indices_of_interest, psd
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('PSD')
     plt.show()
+
+
+def plot_area_values_psd(features,frequency_intervals):
+    plt.bar(range(len(frequency_intervals)), features, tick_label=[str(interval) for interval in frequency_intervals])
+    plt.xlabel('Intervallo di Frequenza')
+    plt.ylabel('Area sotto il PSD')
+    plt.title('Area sotto il PSD per intervallo di frequenza')
+    plt.show()
+
+def plot_PSD_area_features(frequencies, power_spectrum,frequency_intervals):
+    plt.figure(figsize=(10, 6))
+    plt.semilogy(frequencies, power_spectrum, label='Spettro di Potenza', color='blue')
+
+    # Evidenziamo gli intervalli di frequenza di interesse
+    for interval in frequency_intervals:
+        plt.fill_between(frequencies, 0, power_spectrum,
+                         where=((frequencies >= interval[0]) & (frequencies <= interval[1])), alpha=0.3)
+
+    # Aggiungiamo una legenda e le etichette degli assi
+    plt.xlabel('Frequenza (Hz)')
+    plt.ylabel('Spettro di Potenza')
+    plt.title('Spettro di Potenza con Intervalli di Frequenza di Interesse')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+
+def plot_compare(values, vettori_trasposti,titolo,etichette_personalizzate):
+    plt.plot(range(1, len(values) + 1), vettori_trasposti, marker='o')
+    plt.xlabel('Numero di Canali')
+    plt.ylabel('Valori di EER')
+    plt.title(titolo)
+    plt.xticks(range(1, len(values) + 1))
+    plt.legend(etichette_personalizzate)
+    plt.show()
+

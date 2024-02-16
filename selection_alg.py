@@ -78,7 +78,7 @@ def forward_selection_eer(n_channels, dataset, tw, fs, string):
     print(channels_history)
     channel_list = ', '.join(map(str, selected_channels))
 
-    #utils.plot_EER(EER_values)
+    utils.plot_EER(EER_values)
 
     return EER_values, channel_list
 

@@ -5,30 +5,33 @@ import selection_alg
 import time
 import utils
 import compare
+import dataset
 
 start_time = time.time()
 
-datapath = 'C:\\Users\\fabio\\Desktop\\ING INFORMATICA\\TESI\\DREAMER\\DREAMER_base\\dreamer_base.mat'
 
-data = loadmat(datapath)
-EEG_filtt = data['my_base']
 
-fs = 128
+#EEG_filtt, fs = dataset.matrix_4d_DREAMER()
+#n_sbjs, n_clips, n_channels, n_samples = EEG_filtt.shape
+
+matrix, fs = dataset.matrix_3d_109()
+n_sbjs, n_channels, n_samples = matrix.shape
+
+
 tw = 10
 
-n_sbjs, n_clips, n_channels, n_samples = EEG_filtt.shape
 
-compare.compare_forward_with_list(EEG_filtt,tw,fs)
+#compare.compare_forward_with_list(EEG_filtt,tw,fs)
 
 # MATRICE CLIP SINGOLA
 
-i_clip = 3
+#i_clip = 3
 
-reduced_data = EEG_filtt[:, i_clip, :, :]
+#reduced_data = EEG_filtt[:, i_clip, :, :]
 
 #compare.compare_FOOOF_vs_PSD(reduced_data,tw,fs)
 
-#selection_alg.backward_selection_eer(n_channels,reduced_data,tw,fs,'welch_3')
+selection_alg.forward_selection_eer(n_channels,matrix,tw,fs,'welch_2')
 
 #compare.compare_Forward_vs_Backward(reduced_data,tw,fs)
 

@@ -4,6 +4,7 @@ import performance
 import fooof_features
 import welch
 import selection_alg
+import matplotlib.pyplot as plt
 
 
 
@@ -11,7 +12,7 @@ def compute_features_welch(dataset, tw, fs, selected_channels, n_features, freq_
 
     n_sbjs, n_channels, n_samples = dataset.shape
 
-    #n_features = 5
+    #n_sbjs = 10
 
     print(f'Processing window length {tw}')
 
@@ -64,7 +65,7 @@ def compute_features_FOOOF(dataset, tw, fs, selected_channels, n_features, strin
 
     n_sbjs, n_channels, n_samples = dataset.shape
 
-    #n_features = 1
+    #n_sbjs = 10
 
     print(f'Processing window length {tw}')
 
@@ -128,6 +129,8 @@ def compute_EER_AUC_welch (dataset, tw, fs, selected_channels, n_features, freq_
 
     n_sbjs, n_channels, n_samples = dataset.shape
 
+    #n_sbjs = 10
+
     ps, v_identity, n_epochs = compute_features_welch(dataset, tw, fs, selected_channels,n_features,freq_intervals)
 
     # print('Calcolo score')
@@ -138,6 +141,17 @@ def compute_EER_AUC_welch (dataset, tw, fs, selected_channels, n_features, freq_
     FAR, FRR, vettore_soglia = performance.calcolo_FAR_FRR(score_distanza, flag)
     # print(FAR, FRR)
 
+    '''
+    plt.plot(vettore_soglia, FAR, label='FAR')
+    plt.plot(vettore_soglia, FRR, label='FRR')
+    plt.xlabel('Soglia')
+    plt.ylabel('Tasso')
+    plt.title('FAR e FRR in funzione della soglia')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+    '''
+
     # print('Calcolo EER e AUC')
     EER, AUC = performance.calcolo_EER_AUC(FAR, FRR)
 
@@ -147,6 +161,8 @@ def compute_EER_AUC_welch (dataset, tw, fs, selected_channels, n_features, freq_
 def compute_EER_AUC_FOOOF(dataset, tw, fs, selected_channels, n_features, string):
 
     n_sbjs, n_channels, n_samples = dataset.shape
+
+    #n_sbjs = 10
 
     ps, v_identity, n_epochs = compute_features_FOOOF(dataset, tw, fs, selected_channels, n_features, string)
 

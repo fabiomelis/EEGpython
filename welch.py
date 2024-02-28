@@ -8,7 +8,7 @@ from scipy.integrate import simps
 
 def extract_area_from_intervals(tmp_data, i_sbj, i_channel, n_ch_sel, fs, n_features, frequency_intervals):
 
-    #frequency_intervals = [(0, 10), (10,20), (20, 30), (30,40) , (40, 50)]
+    #frequency_intervals = [(1, 3), (4,7), (8, 12), (13,30) , (30, 50)]
 
     indices = []
 

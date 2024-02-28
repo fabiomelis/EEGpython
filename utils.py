@@ -62,7 +62,7 @@ def plot_EER(EER_values):
     plt.xlabel('Numero di Canali')
     plt.ylabel('Valore EER')
     plt.title('EER vs Numero di Canali Selezionati')
-    plt.xticks(range(1, len(EER_values) + 1))
+    #plt.xticks(range(1, len(EER_values) + 1))
     plt.tight_layout()
     plt.show()
 
@@ -116,7 +116,7 @@ def plot_compare(values, vettori_trasposti,titolo,etichette_personalizzate):
     plt.xlabel('Numero di Canali')
     plt.ylabel('Valori di EER')
     plt.title(titolo)
-    plt.xticks(range(1, len(values) + 1))
+    #plt.xticks(range(1, len(values) + 1))
     plt.legend(etichette_personalizzate)
     plt.show()
 

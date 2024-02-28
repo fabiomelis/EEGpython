@@ -44,6 +44,8 @@ def forward_selection_eer(n_channels, dataset, tw, fs, string):
                 EER, AUC = core.compute_EER_AUC_welch(dataset, tw, fs, combined_channels,5,[(0, 10), (10,20), (20, 30), (30,40) , (40, 50)])
             elif string == 'welch_alt':
                 EER, AUC = core.compute_EER_AUC_welch(dataset, tw, fs, combined_channels,3,[(0, 10),  (20, 30),  (40, 50)])
+            elif string == 'welch_new':
+                EER, AUC = core.compute_EER_AUC_welch(dataset, tw, fs, combined_channels,5,[(1, 3), (4,7), (8, 12), (13,30) , (30, 50)])
 
 
             print('EER e AUC: ', EER, AUC)
@@ -80,6 +82,9 @@ def forward_selection_eer(n_channels, dataset, tw, fs, string):
 
     utils.plot_EER(EER_values)
 
+    print(EER_values)
+    print(channel_list)
+
     return EER_values, channel_list
 
 
@@ -113,6 +118,8 @@ def forward_selection_auc(n_channels, dataset, tw, fs, string):
                 EER, AUC = core.compute_EER_AUC_welch(dataset, tw, fs, combined_channels,5,[(0, 10), (10,20), (20, 30), (30,40) , (40, 50)])
             elif string == 'welch_alt':
                 EER, AUC = core.compute_EER_AUC_welch(dataset, tw, fs, combined_channels,3,[(0, 10),  (20, 30),  (40, 50)])
+            elif string == 'welch_new':
+                EER, AUC = core.compute_EER_AUC_welch(dataset, tw, fs, combined_channels,5,[(1, 3), (4,7), (8, 12), (13,30) , (30, 50)])
 
 
             print('EER e AUC: ', EER, AUC)
@@ -147,7 +154,10 @@ def forward_selection_auc(n_channels, dataset, tw, fs, string):
     print(channels_history)
     channel_list = ', '.join(map(str, selected_channels))
 
-    #utils.plot_AUC(AUC_values)
+    utils.plot_AUC(AUC_values)
+
+    print(AUC_values)
+    print(channel_list)
 
     return AUC_values, channel_list
 
@@ -233,7 +243,10 @@ def backward_selection_eer(n_channels, dataset, tw, fs, string):
 
     print(f'Removed channels: {", ".join(map(str, removed_channels))}')
 
-    #utils.plot_EER(EER_values[::-1])
+    utils.plot_EER(EER_values[::-1])
+
+    print(EER_values[::-1])
+    print(removed_channels[::-1])
 
     return EER_values[::-1], removed_channels[::-1]
 

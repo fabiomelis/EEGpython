@@ -120,3 +120,12 @@ def plot_compare(values, vettori_trasposti,titolo,etichette_personalizzate):
     plt.legend(etichette_personalizzate)
     plt.show()
 
+def far_frr(FAR, FRR, vettore_soglia):
+    plt.plot(vettore_soglia, FAR, label='FAR')
+    plt.plot(vettore_soglia, FRR, label='FRR')
+    plt.xlabel('Soglia')
+    plt.ylabel('Tasso')
+    plt.title('FAR e FRR in funzione della soglia')
+    plt.legend()
+    plt.grid(True)
+    plt.show()

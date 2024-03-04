@@ -141,16 +141,7 @@ def compute_EER_AUC_welch (dataset, tw, fs, selected_channels, n_features, freq_
     FAR, FRR, vettore_soglia = performance.calcolo_FAR_FRR(score_distanza, flag)
     # print(FAR, FRR)
 
-    '''
-    plt.plot(vettore_soglia, FAR, label='FAR')
-    plt.plot(vettore_soglia, FRR, label='FRR')
-    plt.xlabel('Soglia')
-    plt.ylabel('Tasso')
-    plt.title('FAR e FRR in funzione della soglia')
-    plt.legend()
-    plt.grid(True)
-    plt.show()
-    '''
+    #utils.far_frr(FAR,FRR,vettore_soglia)
 
     # print('Calcolo EER e AUC')
     EER, AUC = performance.calcolo_EER_AUC(FAR, FRR)
@@ -197,10 +188,10 @@ def compute_EER_fixed_list(list_channels, dataset, tw, fs, string):
             EER, AUC = compute_EER_AUC_FOOOF(dataset, tw, fs, analyzed_channels, 2, string)
         elif string == 'freq':
             EER, AUC = compute_EER_AUC_FOOOF(dataset, tw, fs, analyzed_channels, 3, string)
-        elif string == 'welch_2':
-            EER, AUC = compute_EER_AUC_welch(dataset, tw, fs, analyzed_channels, 2, [(0, 10), (10, 20)])
-        elif string == 'welch_3':
-            EER, AUC = compute_EER_AUC_welch(dataset, tw, fs, analyzed_channels, 3, [(0, 10), (10, 20), (20,30)])
+        elif string == 'welch_4':
+            EER, AUC = compute_EER_AUC_welch(dataset, tw, fs, analyzed_channels, 4,[(1, 3), (4, 7), (8, 12), (13, 30)])
+        elif string == 'welch_5':
+            EER, AUC = compute_EER_AUC_welch(dataset, tw, fs, analyzed_channels, 5, [(1, 3), (4, 7), (8, 12), (13, 30), (30, 50)])
 
         EER_values.append(EER)
 
